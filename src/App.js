@@ -1,25 +1,70 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+let current="X";
+
+function Square(props){
+  const [display,setDisplay]=useState(null);
+  
+  function handleClick(e){
+      // console.log(props.position);
+    if(display!=null){
+      return;
+    }
+    setDisplay(current);
+    props.setboxState(display);
+
+    Winner(props.position);
+
+    if(current=="X"){
+      current="O";
+      return;
+    }
+    if(current=="O"){
+      current="X";
+      return;
+    }
+  }
+
+
+  return <button onClick={handleClick}>{display}</button>
 }
 
-export default App;
+function Winner(boxState){
+
+}
+
+
+export default function Board(){
+  const [boxState,setboxState]=useState([]); 
+// [X,null,null,null]
+
+  useEffect(() => {
+     console.log(boxState);
+  }, [boxState]);
+  // boxstate=[]
+
+  return(
+    <>
+      <div className="board">
+        <table className="table">
+          <tr>
+            <Square position={"00"} setboxState={setboxState}/>
+            <Square position={"01"}/>
+            <Square position={"02"}/>
+          </tr>
+          <tr>
+            <Square/>
+            <Square/>
+            <Square/>
+          </tr>
+          <tr>
+            <Square/>
+            <Square/>
+            <Square/>
+          </tr>
+        </table>
+      </div>
+    </>
+  );
+};
