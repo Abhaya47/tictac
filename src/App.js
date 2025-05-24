@@ -7,7 +7,7 @@ function Square(props){
   const [display,setDisplay]=useState(null);
   
   function handleClick(){
-    console.log(props.onChange);
+    console.log(props.potato());
     if(display!=null){
       return;
     }
@@ -41,7 +41,7 @@ export default function Board(){
 
     function Move(position){
       const temp=[...boxState];
-      temp[position]="X";
+      temp[position]=current;
       setboxState(temp);
       console.log("boxState[0]");
       return boxState;
@@ -58,8 +58,8 @@ export default function Board(){
       <div className="board">
         <table className="table">
           <tr>
-            <td><Square position="0"   onChange={()=>{Move(0)}}/></td>
-            <td><Square position="1" onChange={()=>{Move(1)}}/></td>
+            <td><Square position="0"   potato={()=>{Move(0)}}/></td>
+            <td><Square position="1" potato={()=>{Move(1)}}/></td>
             <td><Square position="2"/></td>
           </tr>
           <tr>
