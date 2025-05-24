@@ -6,15 +6,15 @@ let current="X";
 function Square(props){
   const [display,setDisplay]=useState(null);
   
-  function handleClick(e){
-      // console.log(props.position);
+  function handleClick(){
+    console.log(props.onChange);
     if(display!=null){
       return;
     }
     setDisplay(current);
-    props.setboxState(display);
+    // props.setboxState(display);
 
-    Winner(props.position);
+    Winner(props);
 
     if(current=="X"){
       current="O";
@@ -30,14 +30,23 @@ function Square(props){
   return <button onClick={handleClick}>{display}</button>
 }
 
-function Winner(boxState){
+function Winner(props){
 
 }
 
 
 export default function Board(){
-  const [boxState,setboxState]=useState([]); 
-// [X,null,null,null]
+  const [boxState,setboxState]=useState([null,null,null,null,null,null,null,null,null]); 
+// [X,null,null,null],null],null],
+
+    function Move(position){
+      const temp=[...boxState];
+      temp[position]="X";
+      setboxState(temp);
+      console.log("boxState[0]");
+      return boxState;
+    }
+
 
   useEffect(() => {
      console.log(boxState);
@@ -49,19 +58,19 @@ export default function Board(){
       <div className="board">
         <table className="table">
           <tr>
-            <Square position={"00"} setboxState={setboxState}/>
-            <Square position={"01"}/>
-            <Square position={"02"}/>
+            <td><Square position="0"   onChange={()=>{Move(0)}}/></td>
+            <td><Square position="1" onChange={()=>{Move(1)}}/></td>
+            <td><Square position="2"/></td>
           </tr>
           <tr>
-            <Square/>
-            <Square/>
-            <Square/>
+            <td><Square/></td>
+            <td><Square/></td>
+            <td><Square/></td>
           </tr>
           <tr>
-            <Square/>
-            <Square/>
-            <Square/>
+            <td><Square/></td>
+            <td><Square/></td>
+            <td><Square/></td>
           </tr>
         </table>
       </div>
