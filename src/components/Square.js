@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-
 export default function Square(props){
   const [display,setDisplay]=useState(null);
 
@@ -35,11 +34,11 @@ export default function Square(props){
         Winner(x);
 
         if(props.current=="X"){
-        props.current="O";
+        props.setCurrent("O");
         return;
         }
         if(props.current=="O"){
-        props.current="X";
+        props.setCurrent("X");
         return;
         }
     }
