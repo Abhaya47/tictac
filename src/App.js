@@ -1,54 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./App.css";
+import Square from "./components/Square";
 
 let current="X";
 
-function Square(props){
-  const [display,setDisplay]=useState(null);
-  
-  function handleClick(){
-    let x=props.potato();
-    if(display!=null){
-      return;
-    }
-    setDisplay(current);
-    // props.setboxState(display);
 
-    Winner(x);
-
-    if(current=="X"){
-      current="O";
-      return;
-    }
-    if(current=="O"){
-      current="X";
-      return;
-    }
-  }
-
-
-  return <button onClick={handleClick}>{display}</button>
-}
-
-function Winner(x){
-  isWinner(x,0,1,2);
-  isWinner(x,2,5,8);
-  isWinner(x,8,7,6);
-  isWinner(x,0,3,6);
-  isWinner(x,0,4,8);
-  isWinner(x,6,4,2);
-  isWinner(x,3,4,5);
-  isWinner(x,1,4,7);
-}
-
-function isWinner(x,p1,p2,p3){
-  if(x[p1]==null){
-    return;
-  }
-  if(x[p1]==x[p2] && x[p2]==x[p3]){
-    alert (x[p1]+ " is winner");
-  }
-}
 
 
 export default function Board(){
@@ -68,9 +24,9 @@ export default function Board(){
       <div className="board">
         <table className="table">
           <tr>
-            <td><Square position="0"   potato={()=>{return Move(0)}}/></td>
-            <td><Square position="1" potato={()=>{return Move(1)}}/></td>
-            <td><Square position="2" potato={()=>{return Move(2)}}/></td>
+            <td><Square position="0"   potato={()=>{return Move(0)}}  current={current}/></td>
+            <td><Square position="1" potato={()=>{return Move(1)}} current={current}/></td>
+            <td><Square position="2" potato={()=>{return Move(2)}} current={current}/></td>
           </tr>
           <tr>
             <td><Square potato={()=>{return Move(3)}}/></td>
