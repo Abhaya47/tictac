@@ -7,14 +7,14 @@ function Square(props){
   const [display,setDisplay]=useState(null);
   
   function handleClick(){
-    console.log(props.potato());
+    let x=props.potato();
     if(display!=null){
       return;
     }
     setDisplay(current);
     // props.setboxState(display);
 
-    Winner(props);
+    Winner(x);
 
     if(current=="X"){
       current="O";
@@ -30,8 +30,24 @@ function Square(props){
   return <button onClick={handleClick}>{display}</button>
 }
 
-function Winner(props){
+function Winner(x){
+  isWinner(x,0,1,2);
+  isWinner(x,2,5,8);
+  isWinner(x,8,7,6);
+  isWinner(x,0,3,6);
+  isWinner(x,0,4,8);
+  isWinner(x,6,4,2);
+  isWinner(x,3,4,5);
+  isWinner(x,1,4,7);
+}
 
+function isWinner(x,p1,p2,p3){
+  if(x[p1]==null){
+    return;
+  }
+  if(x[p1]==x[p2] && x[p2]==x[p3]){
+    alert (x[p1]+ " is winner");
+  }
 }
 
 
@@ -43,34 +59,28 @@ export default function Board(){
       const temp=[...boxState];
       temp[position]=current;
       setboxState(temp);
-      console.log("boxState[0]");
-      return boxState;
+      return temp;
     }
 
-
-  useEffect(() => {
-     console.log(boxState);
-  }, [boxState]);
-  // boxstate=[]
 
   return(
     <>
       <div className="board">
         <table className="table">
           <tr>
-            <td><Square position="0"   potato={()=>{Move(0)}}/></td>
-            <td><Square position="1" potato={()=>{Move(1)}}/></td>
-            <td><Square position="2"/></td>
+            <td><Square position="0"   potato={()=>{return Move(0)}}/></td>
+            <td><Square position="1" potato={()=>{return Move(1)}}/></td>
+            <td><Square position="2" potato={()=>{return Move(2)}}/></td>
           </tr>
           <tr>
-            <td><Square/></td>
-            <td><Square/></td>
-            <td><Square/></td>
+            <td><Square potato={()=>{return Move(3)}}/></td>
+            <td><Square potato={()=>{return Move(4)}}/></td>
+            <td><Square potato={()=>{return Move(5)}}/></td>
           </tr>
           <tr>
-            <td><Square/></td>
-            <td><Square/></td>
-            <td><Square/></td>
+            <td><Square potato={()=>{return Move(6)}}/></td>
+            <td><Square potato={()=>{return Move(7)}}/></td>
+            <td><Square potato={()=>{return Move(8)}}/></td>
           </tr>
         </table>
       </div>
